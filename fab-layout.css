@@ -1,0 +1,41 @@
+/* ============================================================
+   FAB LAYOUT — Gom tất cả vào 2 nút chính, không chồng nhau
+   
+   PHẢI: chat(20) + btt(80) — cố định luôn hiện
+   TRÁI: bug(20) — cố định luôn hiện
+   
+   Tất cả nút còn lại: ẨN hoàn toàn
+   ============================================================ */
+
+/* ══ GIỮ LẠI: Chat + Back-to-top + Bug report ══ */
+#cw-fab  { bottom: 20px !important; right: 20px !important; }
+#btt-btn { bottom: 80px !important; right: 20px !important; }
+#_bugBtn { bottom: 20px !important; left: 16px !important; right: auto !important; }
+
+/* ══ ẨN TẤT CẢ NÚT THỪA ══ */
+#rec-toggle,
+#share-fab,
+#pn-bell,
+#page-like-btn,
+#float-clock,
+#weather-widget,
+#feedback-fab,
+#live-visitors,
+#shortcut-sheet-btn,
+#shortcut-sheet,
+#fab-group-toggle,
+#voice-btn,
+#native-share-btn,
+#wakelock-btn,
+#doc-pip-btn,
+#eyedropper-btn,
+#mini-poll {
+  display: none !important;
+}
+
+/* ══ MOBILE ══ */
+@media (max-width: 768px) {
+  #cw-fab  { bottom: 72px !important; right: 12px !important; }
+  #btt-btn { bottom: 72px !important; right: 64px !important; }
+  #_bugBtn { bottom: 72px !important; left: 12px !important; }
+}

@@ -1,0 +1,710 @@
+﻿﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <title>Dịch Vụ & Thanh Toán - Clitus PC</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile-responsive.css">
+  <link rel="stylesheet" href="mobile-ux.css">
+  <link rel="stylesheet" href="mobile-fix.css">
+  <link rel="stylesheet" href="styles-new.css">
+  <link rel="stylesheet" href="modern.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="modern-payment.css">
+  <style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{--bg:#f0f2ff;--card:#fff;--text:#1a1a2e;--sub:#6b7280;--border:#e5e7ff;--grad1:#667eea;--grad2:#764ba2;}
+  html[data-theme="dark"]{--bg:#080818;--card:#12122a;--text:#e8e8ff;--sub:#8888aa;--border:#1e1e3a;}
+
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;}
+
+  /* ── HERO ── */
+  .pay-hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    padding:7rem 1.5rem 5rem;text-align:center;
+  }
+  .pay-hero::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(102,126,234,0.35),transparent);
+  }
+  .hero-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .hero-particles span{
+    position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,0.6);
+    animation:float linear infinite;
+  }
+  @keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+    border-radius:50px;padding:0.4rem 1rem;font-size:0.78rem;color:rgba(255,255,255,0.8);
+    margin-bottom:1.5rem;backdrop-filter:blur(10px);
+  }
+  .pay-hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.2;margin-bottom:1rem;}
+  .pay-hero h1 span{background:linear-gradient(135deg,#a78bfa,#60a5fa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .pay-hero p{color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:520px;margin:0 auto 2rem;}
+  .hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;}
+  .hero-stat{text-align:center;}
+  .hero-stat .num{font-size:1.8rem;font-weight:900;color:#fff;}
+  .hero-stat .lbl{font-size:0.75rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;}
+
+  /* ── LAYOUT ── */
+  .pay-body{max-width:1100px;margin:0 auto;padding:4rem 1.5rem 5rem;}
+  .section-head{text-align:center;margin-bottom:2.5rem;}
+  .section-head .eyebrow{font-size:0.75rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:var(--grad1);margin-bottom:0.5rem;}
+  .section-head h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;color:var(--text);}
+  .section-head p{color:var(--sub);font-size:0.93rem;margin-top:0.4rem;}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:3.5rem 0;}
+
+  /* ── SERVICE CARDS ── */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+  .svc-card{
+    background:var(--card);border-radius:24px;padding:2rem;
+    border:1px solid var(--border);position:relative;overflow:hidden;
+    transition:all 0.35s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  }
+  .svc-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(102,126,234,0.18);}
+  .svc-card.featured{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,#667eea,#764ba2) border-box;}
+  .svc-card.featured::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(102,126,234,0.04),rgba(118,75,162,0.04));pointer-events:none;}
+  .svc-badge{position:absolute;top:1.25rem;right:1.25rem;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.68rem;font-weight:800;padding:0.3rem 0.75rem;border-radius:50px;letter-spacing:0.05em;}
+  .svc-icon-wrap{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.25rem;}
+  .svc-name{font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:0.4rem;}
+  .svc-desc{font-size:0.85rem;color:var(--sub);line-height:1.65;margin-bottom:1.25rem;}
+  .svc-price{display:flex;align-items:baseline;gap:0.3rem;margin-bottom:1.25rem;}
+  .svc-price .amount{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .svc-price .unit{font-size:0.82rem;color:var(--sub);}
+  .svc-features{list-style:none;margin-bottom:1.5rem;}
+  .svc-features li{font-size:0.83rem;color:var(--sub);padding:0.35rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid var(--border);}
+  .svc-features li:last-child{border:none;}
+  .svc-features li i{color:#10b981;font-size:0.7rem;flex-shrink:0;}
+  .hire-btn{
+    width:100%;padding:0.9rem;border:none;border-radius:14px;cursor:pointer;
+    font-size:0.93rem;font-weight:700;transition:all 0.25s;
+    display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  }
+  .hire-btn.solid{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 6px 20px rgba(102,126,234,0.35);}
+  .hire-btn.solid:hover{opacity:0.88;transform:translateY(-2px);}
+  .hire-btn.outline{background:none;border:2px solid var(--grad1);color:var(--grad1);}
+  .hire-btn.outline:hover{background:var(--grad1);color:#fff;}
+
+  /* ── SOURCE CODE ── */
+  .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;}
+  .src-card{
+    background:var(--card);border-radius:20px;padding:1.5rem;
+    border:1px solid var(--border);transition:all 0.3s;
+    box-shadow:0 2px 16px rgba(0,0,0,0.05);
+  }
+  .src-card:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(102,126,234,0.14);}
+  .src-techs{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.85rem;}
+  .src-tech{padding:0.22rem 0.65rem;border-radius:50px;font-size:0.7rem;font-weight:700;background:rgba(102,126,234,0.1);color:#667eea;border:1px solid rgba(102,126,234,0.18);}
+  .src-name{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:0.35rem;}
+  .src-desc{font-size:0.81rem;color:var(--sub);line-height:1.6;margin-bottom:1rem;}
+  .src-footer{display:flex;align-items:center;justify-content:space-between;gap:0.75rem;}
+  .src-price{font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .src-btn{padding:0.55rem 1.1rem;border:none;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.8rem;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+  .src-btn:hover{opacity:0.85;transform:translateY(-2px);}
+
+  /* ── DONATE ── */
+  .donate-wrap{
+    background:linear-gradient(135deg,#0f0c29,#302b63);
+    border-radius:28px;padding:3rem 2rem;text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .donate-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(102,126,234,0.3),transparent);}
+  .donate-wrap h2{font-size:1.6rem;font-weight:900;color:#fff;margin-bottom:0.5rem;position:relative;}
+  .donate-wrap p{color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:2rem;position:relative;}
+  .donate-amts{display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:2.5rem;position:relative;}
+  .d-amt{
+    padding:0.6rem 1.4rem;border-radius:50px;
+    border:1.5px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);
+    color:rgba(255,255,255,0.8);font-size:0.88rem;font-weight:700;cursor:pointer;
+    transition:all 0.2s;backdrop-filter:blur(8px);
+  }
+  .d-amt:hover,.d-amt.active{background:linear-gradient(135deg,#667eea,#764ba2);border-color:transparent;color:#fff;transform:scale(1.05);}
+  .qr-cards{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;position:relative;}
+  .qr-card{
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;padding:1.5rem;cursor:pointer;transition:all 0.3s;
+    backdrop-filter:blur(12px);width:180px;text-align:center;
+  }
+  .qr-card:hover{background:rgba(255,255,255,0.12);transform:translateY(-6px);border-color:rgba(102,126,234,0.5);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+  .qr-card-logo{border-radius:10px;padding:0.35rem 0.85rem;display:inline-flex;align-items:center;justify-content:center;margin-bottom:0.85rem;font-weight:900;font-size:0.88rem;}
+  .qr-card img{width:130px;height:130px;border-radius:10px;object-fit:cover;border:2px solid rgba(255,255,255,0.15);}
+  .qr-card-name{font-size:0.8rem;font-weight:800;color:#fff;margin-top:0.65rem;}
+  .qr-card-sub{font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:0.2rem;}
+  .qr-hint{color:rgba(255,255,255,0.4);font-size:0.75rem;margin-top:1.5rem;position:relative;}
+
+  /* ── MODALS ── */
+  .modal-wrap{display:none;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:1rem;}
+  .modal-bg{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);}
+  .modal-box{
+    position:relative;z-index:1;background:var(--card);border-radius:28px;
+    padding:2.5rem 2rem;width:100%;max-width:420px;
+    box-shadow:0 32px 100px rgba(0,0,0,0.35);animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes popIn{from{opacity:0;transform:scale(0.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .modal-close{position:absolute;top:1.25rem;right:1.25rem;width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;color:var(--sub);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+  .modal-close:hover{background:var(--border);color:var(--text);}
+  .modal-icon{width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem;}
+  .modal-title{font-size:1.1rem;font-weight:800;color:var(--text);text-align:center;margin-bottom:0.25rem;}
+  .modal-price{font-size:2rem;font-weight:900;text-align:center;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.5rem;}
+  .modal-qr{width:200px;height:200px;border-radius:16px;display:block;margin:0 auto 1.25rem;border:3px solid var(--border);}
+  .bank-table{background:var(--bg);border-radius:14px;overflow:hidden;margin-bottom:1rem;}
+  .bank-row{display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:1px solid var(--border);font-size:0.83rem;}
+  .bank-row:last-child{border:none;}
+  .bank-row .k{color:var(--sub);}
+  .bank-row .v{font-weight:700;color:var(--text);display:flex;align-items:center;gap:0.4rem;}
+  .copy-btn{background:none;border:none;color:var(--grad1);cursor:pointer;font-size:0.75rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:6px;transition:background 0.2s;}
+  .copy-btn:hover{background:rgba(102,126,234,0.1);}
+  .modal-note{font-size:0.75rem;color:var(--sub);text-align:center;margin-bottom:1rem;}
+  .zalo-btn{
+    width:100%;padding:0.85rem;border:none;border-radius:14px;cursor:pointer;
+    background:linear-gradient(135deg,#0068ff,#00c6ff);color:#fff;
+    font-size:0.93rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+    transition:all 0.2s;box-shadow:0 6px 20px rgba(0,104,255,0.3);
+  }
+  .zalo-btn:hover{opacity:0.88;transform:translateY(-2px);}
+  /* QR Full */
+  .qr-full-box{
+    position:relative;z-index:1;background:linear-gradient(135deg,#0f0c29,#302b63);
+    border-radius:28px;padding:2.5rem 2rem;width:100%;max-width:360px;text-align:center;
+    box-shadow:0 32px 100px rgba(0,0,0,0.5);animation:popIn 0.3s cubic-bezier(.34,1.56,.64,1);
+    border:1px solid rgba(255,255,255,0.1);
+  }
+  .qr-full-box img{width:260px;height:260px;border-radius:16px;object-fit:cover;margin:1rem auto;display:block;border:3px solid rgba(255,255,255,0.15);}
+  .qr-full-name{font-size:1rem;font-weight:800;color:#fff;}
+  .qr-full-sub{font-size:0.82rem;color:rgba(255,255,255,0.5);margin-top:0.3rem;}
+  .qr-full-hint{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:1rem;}
+  /* ── VIP SECTION ── */
+  .vip-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start;}
+  @media(max-width:768px){.vip-wrap{grid-template-columns:1fr;}}
+
+  .vip-card{
+    background:linear-gradient(135deg,#0f0c29,#302b63,#1a1a3e);
+    border-radius:28px;padding:2.5rem 2rem;text-align:center;
+    position:relative;overflow:hidden;
+    border:1px solid rgba(245,158,11,0.3);
+    box-shadow:0 20px 60px rgba(102,126,234,0.25);
+  }
+  .vip-glow{
+    position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+    background:radial-gradient(circle at 50% 30%,rgba(245,158,11,0.15),transparent 60%);
+    pointer-events:none;z-index:0;
+    animation:vipPulse 3s ease-in-out infinite;
+  }
+  @keyframes vipPulse{0%,100%{opacity:0.6}50%{opacity:1}}
+  .vip-crown{font-size:3rem;margin-bottom:0.5rem;position:relative;z-index:1;animation:crownFloat 3s ease-in-out infinite;}
+  @keyframes crownFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .vip-badge-label{
+    display:inline-block;background:linear-gradient(135deg,#f59e0b,#d97706);
+    color:#fff;font-size:0.7rem;font-weight:900;letter-spacing:0.15em;
+    padding:0.3rem 1rem;border-radius:50px;margin-bottom:1.25rem;
+    text-transform:uppercase;position:relative;z-index:1;
+  }
+  .vip-price-wrap{margin-bottom:1.5rem;position:relative;z-index:1;}
+  .vip-price{
+    font-size:2.5rem;font-weight:900;
+    background:linear-gradient(135deg,#f59e0b,#fbbf24,#f59e0b);
+    background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:goldShift 3s linear infinite;
+  }
+  @keyframes goldShift{0%{background-position:0% center}100%{background-position:200% center}}
+  .vip-unit{font-size:0.85rem;color:rgba(255,255,255,0.5);display:block;margin-top:0.2rem;}
+  .vip-perks{list-style:none;text-align:left;margin-bottom:1.75rem;position:relative;z-index:1;}
+  .vip-perks li{
+    display:flex;align-items:center;gap:0.75rem;
+    padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.07);
+    font-size:0.88rem;color:rgba(255,255,255,0.85);
+  }
+  .vip-perks li:last-child{border:none;}
+  .perk-icon{font-size:1rem;flex-shrink:0;}
+  .vip-btn{
+    width:100%;padding:1rem;border:none;border-radius:16px;cursor:pointer;
+    background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;
+    font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;gap:0.6rem;
+    box-shadow:0 8px 28px rgba(245,158,11,0.45);transition:all 0.25s;
+    position:relative;z-index:2;
+  }
+  .vip-btn:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(245,158,11,0.55);}
+  .vip-note{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:0.75rem;position:relative;z-index:1;}
+
+  /* Compare table */
+  .vip-compare{background:var(--card);border-radius:24px;padding:1.75rem;border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,0.06);}
+  .compare-title{font-size:0.85rem;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;}
+  .compare-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+  .compare-table th{padding:0.65rem 0.85rem;text-align:center;font-size:0.75rem;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:0.06em;border-bottom:2px solid var(--border);}
+  .compare-table th:first-child{text-align:left;}
+  .compare-table td{padding:0.6rem 0.85rem;text-align:center;border-bottom:1px solid var(--border);color:var(--sub);}
+  .compare-table td:first-child{text-align:left;color:var(--text);font-weight:500;}
+  .compare-table tr:last-child td{border:none;}
+  .compare-table .vip-col{background:rgba(245,158,11,0.06);font-weight:700;color:#d97706;}
+  .compare-table th.vip-col{color:#d97706;background:rgba(245,158,11,0.08);}
+
+  /* Check status */
+  .check-status-box{background:var(--bg);border-radius:16px;padding:1.25rem;margin-top:1.25rem;}
+  .check-status-title{font-size:0.82rem;font-weight:700;color:var(--sub);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.4rem;}
+  .check-status-row{display:flex;gap:0.5rem;}
+  .check-status-row input{flex:1;padding:0.65rem 0.9rem;border:1.5px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);font-size:0.85rem;outline:none;font-family:inherit;}
+  .check-status-row input:focus{border-color:#667eea;}
+  .check-status-row button{padding:0.65rem 1rem;border:none;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+  .check-status-row button:hover{opacity:0.88;transform:translateY(-1px);}
+  #checkResult{margin-top:0.75rem;font-size:0.83rem;}
+  .status-active{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:0.65rem 0.9rem;color:#059669;font-weight:700;}
+  .status-pending{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:0.65rem 0.9rem;color:#d97706;font-weight:700;}
+  .status-none{background:rgba(102,126,234,0.08);border:1px solid rgba(102,126,234,0.2);border-radius:10px;padding:0.65rem 0.9rem;color:#667eea;}
+  </style>
+</head>
+<body>
+<script src="dist/protect.js"></script>
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <span class="logo-icon">💻</span>
+      <span class="logo-text">Clitus<span class="logo-accent">PC</span></span>
+    </a>
+    <ul id="navMenu">
+      <li><a href="index.html">Trang Chủ</a></li>
+      <li><a href="index.html#about">Về Tôi</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Công Cụ <i class="fas fa-chevron-down nav-chevron"></i></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="tools.html"><span class="dd-icon">🤖</span> AI Tools</a></li>
+          <li><a href="arcade.html"><span class="dd-icon">🎮</span> Arcade & Coins</a></li>
+          <li><a href="services.html"><span class="dd-icon">🛍️</span> Dịch Vụ</a></li>
+          <li><a href="roadmap.html"><span class="dd-icon">🗺️</span> Roadmap</a></li>
+          <li><a href="proposal.html"><span class="dd-icon">💼</span> Proposal</a></li>
+          <li><a href="invoice.html"><span class="dd-icon">🧾</span> Invoice</a></li>
+          <li><a href="payment.html" class="active"><span class="dd-icon">💳</span> Dịch Vụ & VIP</a></li>
+          <li><a href="ads.html"><span class="dd-icon">📢</span> Ad Marketplace</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+      <div class="nav-auth-slot"></div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<div class="pay-hero">
+  <div class="hero-particles" id="heroParticles"></div>
+  <div style="position:relative;">
+    <div class="hero-badge"><i class="fas fa-shield-halved"></i> Thanh toán an toàn · Bảo mật 100%</div>
+    <h1>Dịch Vụ &<br><span>Thanh Toán</span></h1>
+    <p>Thuê tôi làm dự án, mua source code, hoặc ủng hộ một ly cà phê ☕</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">50+</div><div class="lbl">Dự án</div></div>
+      <div class="hero-stat"><div class="num">10+</div><div class="lbl">Năm KN</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="lbl">Hài lòng</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="pay-body">
+
+  <!-- HIRE ME -->
+  <div class="section-head">
+    <div class="eyebrow">💼 Dịch vụ</div>
+    <h2>Thuê Tôi Làm Dự Án</h2>
+    <p>Giải pháp web chuyên nghiệp, bàn giao đúng hạn, hỗ trợ tận tình</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card">
+      <div class="svc-icon-wrap" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(5,150,105,0.15));">🌐</div>
+      <div class="svc-name">Landing Page</div>
+      <div class="svc-desc">Website giới thiệu sản phẩm/dịch vụ, responsive, tối ưu SEO, tốc độ cao.</div>
+      <div class="svc-price"><span class="amount">3.000.000</span><span class="unit">VNĐ</span></div>
+      <ul class="svc-features">
+        <li><i class="fas fa-check"></i>Responsive mobile/tablet/desktop</li>
+        <li><i class="fas fa-check"></i>SEO cơ bản + tốc độ tải nhanh</li>
+        <li><i class="fas fa-check"></i>Form liên hệ + Google Maps</li>
+        <li><i class="fas fa-check"></i>Bàn giao trong 5-7 ngày</li>
+      </ul>
+      <button class="hire-btn outline" onclick="openPayModal('Landing Page','3.000.000 VNĐ')"><i class="fas fa-briefcase"></i> Thuê Ngay</button>
+    </div>
+    <div class="svc-card featured">
+      <div class="svc-badge">⭐ Phổ biến</div>
+      <div class="svc-icon-wrap" style="background:linear-gradient(135deg,rgba(102,126,234,0.15),rgba(118,75,162,0.15));">🛒</div>
+      <div class="svc-name">Website Bán Hàng</div>
+      <div class="svc-desc">E-commerce đầy đủ: giỏ hàng, thanh toán, quản lý đơn hàng, admin panel.</div>
+      <div class="svc-price"><span class="amount">15.000.000</span><span class="unit">VNĐ</span></div>
+      <ul class="svc-features">
+        <li><i class="fas fa-check"></i>Giỏ hàng + thanh toán online</li>
+        <li><i class="fas fa-check"></i>Quản lý sản phẩm/đơn hàng</li>
+        <li><i class="fas fa-check"></i>Admin dashboard</li>
+        <li><i class="fas fa-check"></i>Bàn giao trong 30-45 ngày</li>
+      </ul>
+      <button class="hire-btn solid" onclick="openPayModal('Website Bán Hàng','15.000.000 VNĐ')"><i class="fas fa-briefcase"></i> Thuê Ngay</button>
+    </div>
+    <div class="svc-card">
+      <div class="svc-icon-wrap" style="background:linear-gradient(135deg,rgba(245,87,108,0.15),rgba(240,147,251,0.15));">⚙️</div>
+      <div class="svc-name">Web App / SaaS</div>
+      <div class="svc-desc">Ứng dụng web phức tạp: dashboard, API, authentication, real-time features.</div>
+      <div class="svc-price"><span class="amount">30.000.000</span><span class="unit">VNĐ</span></div>
+      <ul class="svc-features">
+        <li><i class="fas fa-check"></i>Full Stack (React + Node.js)</li>
+        <li><i class="fas fa-check"></i>Database + REST API</li>
+        <li><i class="fas fa-check"></i>Auth + phân quyền</li>
+        <li><i class="fas fa-check"></i>Deploy + bảo trì 3 tháng</li>
+      </ul>
+      <button class="hire-btn outline" onclick="openPayModal('Web App / SaaS','30.000.000 VNĐ')"><i class="fas fa-briefcase"></i> Thuê Ngay</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SOURCE CODE -->
+  <div class="section-head">
+    <div class="eyebrow">📦 Source Code</div>
+    <h2>Mua Source Code</h2>
+    <p>Template chất lượng cao, code sạch, có tài liệu hướng dẫn</p>
+  </div>
+  <div class="source-grid">
+    <div class="src-card">
+      <div class="src-techs"><span class="src-tech">React</span><span class="src-tech">Node.js</span><span class="src-tech">MongoDB</span></div>
+      <div class="src-name">Portfolio Template Pro</div>
+      <div class="src-desc">Template portfolio như trang này: blog, AI chat, dark mode, PWA, auth.</div>
+      <div class="src-footer"><div class="src-price">299.000 VNĐ</div><button class="src-btn" onclick="openPayModal('Portfolio Template Pro','299.000 VNĐ')"><i class="fas fa-shopping-cart"></i> Mua</button></div>
+    </div>
+    <div class="src-card">
+      <div class="src-techs"><span class="src-tech">React</span><span class="src-tech">Stripe</span><span class="src-tech">Firebase</span></div>
+      <div class="src-name">E-Commerce Starter</div>
+      <div class="src-desc">Boilerplate bán hàng: giỏ hàng, Stripe payment, quản lý sản phẩm.</div>
+      <div class="src-footer"><div class="src-price">599.000 VNĐ</div><button class="src-btn" onclick="openPayModal('E-Commerce Starter','599.000 VNĐ')"><i class="fas fa-shopping-cart"></i> Mua</button></div>
+    </div>
+    <div class="src-card">
+      <div class="src-techs"><span class="src-tech">Vue.js</span><span class="src-tech">Python</span><span class="src-tech">PostgreSQL</span></div>
+      <div class="src-name">Dashboard Analytics</div>
+      <div class="src-desc">Admin dashboard với charts, báo cáo, export Excel/PDF, dark mode.</div>
+      <div class="src-footer"><div class="src-price">499.000 VNĐ</div><button class="src-btn" onclick="openPayModal('Dashboard Analytics','499.000 VNĐ')"><i class="fas fa-shopping-cart"></i> Mua</button></div>
+    </div>
+    <div class="src-card">
+      <div class="src-techs"><span class="src-tech">React Native</span><span class="src-tech">Expo</span></div>
+      <div class="src-name">Mobile App Template</div>
+      <div class="src-desc">Template React Native: auth, navigation, API integration, push notification.</div>
+      <div class="src-footer"><div class="src-price">399.000 VNĐ</div><button class="src-btn" onclick="openPayModal('Mobile App Template','399.000 VNĐ')"><i class="fas fa-shopping-cart"></i> Mua</button></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- VIP MEMBERSHIP -->
+  <div id="vip" class="section-head">
+    <div class="eyebrow">👑 Membership</div>
+    <h2>Gói VIP — 2.500.000 VNĐ/tháng</h2>
+    <p>Truy cập toàn bộ source code, tải không giới hạn, nội dung độc quyền</p>
+  </div>
+
+  <div class="vip-wrap">
+    <!-- VIP Card -->
+    <div class="vip-card">
+      <div class="vip-glow"></div>
+      <div class="vip-crown">👑</div>
+      <div class="vip-badge-label">VIP MEMBER</div>
+      <div class="vip-price-wrap">
+        <span class="vip-price">2.500.000</span>
+        <span class="vip-unit">VNĐ / tháng</span>
+      </div>
+      <ul class="vip-perks">
+        <li><span class="perk-icon">✅</span> Xem toàn bộ source code dự án</li>
+        <li><span class="perk-icon">✅</span> Tải source code không giới hạn</li>
+        <li><span class="perk-icon">✅</span> Nội dung blog VIP độc quyền</li>
+        <li><span class="perk-icon">✅</span> Hỗ trợ ưu tiên qua Zalo</li>
+        <li><span class="perk-icon">✅</span> Cập nhật code mới hàng tháng</li>
+        <li><span class="perk-icon">✅</span> Tham gia nhóm dev riêng</li>
+      </ul>
+      <button class="vip-btn" onclick="openVipModal()">
+        <i class="fas fa-crown"></i> Đăng Ký VIP Ngay
+      </button>
+      <div class="vip-note">Kích hoạt trong 1-2 giờ sau khi thanh toán</div>
+    </div>
+
+    <!-- Compare table -->
+    <div class="vip-compare">
+      <div class="compare-title">So sánh gói</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Tính năng</th>
+            <th>Free</th>
+            <th class="vip-col">VIP 👑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Xem portfolio</td><td>✅</td><td class="vip-col">✅</td></tr>
+          <tr><td>Đọc blog</td><td>✅</td><td class="vip-col">✅</td></tr>
+          <tr><td>AI Chat</td><td>✅</td><td class="vip-col">✅</td></tr>
+          <tr><td>Xem source code</td><td>❌</td><td class="vip-col">✅</td></tr>
+          <tr><td>Tải source code</td><td>❌</td><td class="vip-col">✅</td></tr>
+          <tr><td>Blog VIP</td><td>❌</td><td class="vip-col">✅</td></tr>
+          <tr><td>Hỗ trợ Zalo</td><td>❌</td><td class="vip-col">✅</td></tr>
+          <tr><td>Nhóm dev riêng</td><td>❌</td><td class="vip-col">✅</td></tr>
+        </tbody>
+      </table>
+      <!-- Check status -->
+      <div class="check-status-box">
+        <div class="check-status-title"><i class="fas fa-search"></i> Kiểm tra trạng thái VIP</div>
+        <div class="check-status-row">
+          <input type="email" id="checkEmail" placeholder="Nhập email của bạn...">
+          <button onclick="checkVipStatus()"><i class="fas fa-check"></i> Kiểm tra</button>
+        </div>
+        <div id="checkResult"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DONATE -->
+  <div id="donate" class="donate-wrap">
+    <h2>☕ Ủng Hộ / Donate</h2>
+    <p>Nếu nội dung của mình có ích, hãy mời mình một ly cà phê nhé! Mọi sự ủng hộ đều được trân trọng 🙏</p>
+    <div class="donate-amts">
+      <button class="d-amt active" onclick="selAmt(this,'20.000')">☕ 20k</button>
+      <button class="d-amt" onclick="selAmt(this,'50.000')">☕☕ 50k</button>
+      <button class="d-amt" onclick="selAmt(this,'100.000')">🎁 100k</button>
+      <button class="d-amt" onclick="selAmt(this,'200.000')">💎 200k</button>
+    </div>
+    <div class="qr-cards">
+      <div class="qr-card" onclick="openQRFull('zalopay')">
+        <div class="qr-card-logo" style="background:#0068ff;color:#fff;">Zalo<span style="color:#00e5ff;">Pay</span></div>
+        <img src="img/qr-zalopay.webp" alt="ZaloPay QR">
+        <div class="qr-card-name">THÁI TUẤN KIỆT</div>
+        <div class="qr-card-sub">ZaloPay</div>
+      </div>
+      <div class="qr-card" onclick="openQRFull('acb')">
+        <div class="qr-card-logo" style="background:#003087;color:#fff;font-size:1rem;">ACB</div>
+        <img src="img/qr-acb.webp" alt="ACB QR">
+        <div class="qr-card-name">THÁI TUẤN KIỆT</div>
+        <div class="qr-card-sub">ACB · 26996867</div>
+      </div>
+      <div class="qr-card" onclick="openQRFull('momo')">
+        <div class="qr-card-logo" style="background:#a50064;color:#fff;">MoMo</div>
+        <img src="img/qr-momo.webp" alt="MoMo QR">
+        <div class="qr-card-name">THÁI TUẤN KIỆT</div>
+        <div class="qr-card-sub">MoMo · *****331</div>
+      </div>
+    </div>
+    <div class="qr-hint"><i class="fas fa-hand-pointer"></i> Click vào QR để phóng to</div>
+  </div>
+
+</div>
+</main>
+
+<!-- VIP Modal -->
+<div class="modal-wrap" id="vipModal">
+  <div class="modal-bg" onclick="closeVipModal()"></div>
+  <div class="modal-box" style="max-width:460px;">
+    <button class="modal-close" onclick="closeVipModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);">👑</div>
+    <div class="modal-title">Đăng Ký Gói VIP</div>
+    <div class="modal-price">2.500.000 VNĐ/tháng</div>
+
+    <!-- Step 1: Form -->
+    <div id="vipStep1">
+      <div style="margin-bottom:1rem;">
+        <input type="text" id="vipName" placeholder="Họ tên của bạn *" style="width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;margin-bottom:0.6rem;font-family:inherit;">
+        <input type="email" id="vipEmail" placeholder="Email của bạn *" style="width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;font-family:inherit;">
+      </div>
+      <div style="background:var(--bg);border-radius:14px;padding:1rem;margin-bottom:1rem;">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--sub);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.05em;">Chuyển khoản ACB</div>
+        <div class="bank-table" style="margin:0;">
+          <div class="bank-row"><span class="k">Ngân hàng</span><span class="v">ACB</span></div>
+          <div class="bank-row"><span class="k">Số TK</span><span class="v">26996867 <button class="copy-btn" onclick="cp('26996867')"><i class="fas fa-copy"></i></button></span></div>
+          <div class="bank-row"><span class="k">Chủ TK</span><span class="v">THAI TUAN KIET</span></div>
+          <div class="bank-row"><span class="k">Số tiền</span><span class="v" style="color:#667eea;font-weight:800;">2.500.000 VNĐ</span></div>
+          <div class="bank-row"><span class="k">Nội dung</span><span class="v" style="font-size:0.78rem;">VIP [email của bạn]</span></div>
+        </div>
+      </div>
+      <img src="img/qr-acb.webp" alt="QR ACB" style="width:140px;height:140px;border-radius:12px;display:block;margin:0 auto 1rem;border:2px solid var(--border);">
+      <input type="text" id="vipRef" placeholder="Nội dung chuyển khoản (tuỳ chọn)" style="width:100%;padding:0.75rem 1rem;border:1.5px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);font-size:0.88rem;outline:none;margin-bottom:1rem;font-family:inherit;">
+      <button onclick="submitVip()" style="width:100%;padding:0.9rem;border:none;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:0.95rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;box-shadow:0 6px 20px rgba(245,158,11,0.4);transition:all 0.2s;" id="vipSubmitBtn">
+        <i class="fas fa-crown"></i> Xác nhận đã chuyển khoản
+      </button>
+      <div style="font-size:0.75rem;color:var(--sub);text-align:center;margin-top:0.75rem;">Sau khi xác nhận, admin sẽ kích hoạt trong 1-2 giờ</div>
+    </div>
+
+    <!-- Step 2: Success -->
+    <div id="vipStep2" style="display:none;text-align:center;padding:1rem 0;">
+      <div style="font-size:3rem;margin-bottom:0.75rem;">🎉</div>
+      <div style="font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Đăng ký thành công!</div>
+      <div style="font-size:0.88rem;color:var(--sub);line-height:1.6;margin-bottom:1.25rem;">Chúng tôi đã nhận được yêu cầu của bạn.<br>Gói VIP sẽ được kích hoạt trong <strong>1-2 giờ</strong>.</div>
+      <button onclick="window.open('https://zalo.me/0906857331','_blank')" style="padding:0.75rem 1.5rem;border:none;border-radius:50px;background:linear-gradient(135deg,#0068ff,#00c6ff);color:#fff;font-weight:700;cursor:pointer;font-size:0.9rem;">
+        <i class="fas fa-comment-dots"></i> Nhắn Zalo để nhanh hơn
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="modal-wrap" id="payModal">
+  <div class="modal-bg" onclick="closePayModal()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePayModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-icon">💳</div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-price" id="mPrice"></div>
+    <img class="modal-qr" id="mQR" src="" alt="QR">
+    <div class="bank-table">
+      <div class="bank-row"><span class="k">Ngân hàng</span><span class="v">ACB</span></div>
+      <div class="bank-row"><span class="k">Số tài khoản</span><span class="v">26996867 <button class="copy-btn" onclick="cp('26996867')"><i class="fas fa-copy"></i></button></span></div>
+      <div class="bank-row"><span class="k">Chủ tài khoản</span><span class="v">THAI TUAN KIET</span></div>
+      <div class="bank-row"><span class="k">Nội dung CK</span><span class="v" id="mContent" style="font-size:0.78rem;"></span></div>
+    </div>
+    <div class="modal-note">Sau khi thanh toán, liên hệ Zalo để xác nhận và nhận sản phẩm</div>
+    <button class="zalo-btn" onclick="window.open('https://zalo.me/0906857331','_blank')">
+      <i class="fas fa-comment-dots"></i> Liên hệ Zalo xác nhận
+    </button>
+  </div>
+</div>
+
+<!-- QR Fullscreen -->
+<div class="modal-wrap" id="qrFullModal">
+  <div class="modal-bg" onclick="closeQRFull()"></div>
+  <div class="qr-full-box">
+    <button class="modal-close" onclick="closeQRFull()" style="background:rgba(255,255,255,0.1);color:#fff;"><i class="fas fa-times"></i></button>
+    <div id="qrFullLogo"></div>
+    <img id="qrFullImg" src="" alt="QR">
+    <div class="qr-full-name">THÁI TUẤN KIỆT</div>
+    <div class="qr-full-sub" id="qrFullSub"></div>
+    <div class="qr-full-hint"><i class="fas fa-mobile-screen"></i> Quét mã bằng camera điện thoại</div>
+  </div>
+</div>
+
+<script>
+// VIP Modal functions — defined early so inline onclick works
+const API_BASE = (location.hostname==='localhost'||location.hostname==='127.0.0.1')
+  ? 'http://localhost:3001/api' : `${location.origin}/api`;
+
+function openVipModal() {
+  document.getElementById('vipModal').style.display='flex';
+  document.getElementById('vipStep1').style.display='block';
+  document.getElementById('vipStep2').style.display='none';
+  document.body.style.overflow='hidden';
+}
+function closeVipModal() {
+  document.getElementById('vipModal').style.display='none';
+  document.body.style.overflow='';
+}
+async function submitVip() {
+  const name = document.getElementById('vipName').value.trim();
+  const email = document.getElementById('vipEmail').value.trim();
+  const ref = document.getElementById('vipRef').value.trim();
+  if(!name||!email) { alert('Vui lòng nhập họ tên và email!'); return; }
+  const btn = document.getElementById('vipSubmitBtn');
+  btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+  try {
+    const r = await fetch(`${API_BASE}/subscription/register`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, transferRef: ref })
+    });
+    const d = await r.json();
+    if(!r.ok && r.status!==409) throw new Error(d.error);
+    if (typeof laEvent === 'function') laEvent('vip', '💎 Ai đó vừa đăng ký gói VIP!');
+    document.getElementById('vipStep1').style.display='none';
+    document.getElementById('vipStep2').style.display='block';
+  } catch(e) {
+    alert('Lỗi: '+e.message);
+    btn.disabled=false;
+    btn.innerHTML='<i class="fas fa-crown"></i> Xác nhận đã chuyển khoản';
+  }
+}
+async function checkVipStatus() {
+  const email = document.getElementById('checkEmail').value.trim();
+  if(!email) return;
+  const res = document.getElementById('checkResult');
+  res.innerHTML='<span style="color:var(--sub)">Đang kiểm tra...</span>';
+  try {
+    const r = await fetch(`${API_BASE}/subscription/check?email=${encodeURIComponent(email)}`);
+    const d = await r.json();
+    if(d.hasSubscription) {
+      const exp = new Date(d.subscription.expires_at).toLocaleDateString('vi-VN');
+      res.innerHTML=`<div class="status-active">✅ VIP đang hoạt động — hết hạn ${exp}</div>`;
+    } else if(d.subscription?.status==='pending') {
+      res.innerHTML=`<div class="status-pending">⏳ Đang chờ xác nhận thanh toán</div>`;
+    } else {
+      res.innerHTML=`<div class="status-none">Chưa có gói VIP. <a href="#vip" onclick="openVipModal()" style="color:#667eea;font-weight:700;">Đăng ký ngay →</a></div>`;
+    }
+  } catch(e) {
+    res.innerHTML='<span style="color:red">Lỗi kết nối</span>';
+  }
+}
+</script>
+<script src="dist/api.js"></script>
+<script src="dist/auth.js"></script>
+<script src="dist/nav.js"></script>
+<script>
+// Particles
+(function(){
+  const c = document.getElementById('heroParticles');
+  for(let i=0;i<25;i++){
+    const s = document.createElement('span');
+    s.style.cssText = `left:${Math.random()*100}%;animation-duration:${6+Math.random()*10}s;animation-delay:${Math.random()*8}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;opacity:${0.3+Math.random()*0.5}`;
+    c.appendChild(s);
+  }
+})();
+
+let _amt = '20.000';
+function selAmt(el, amt) {
+  document.querySelectorAll('.d-amt').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active'); _amt = amt;
+}
+
+const qrData = {
+  zalopay:{img:'img/qr-zalopay.webp',sub:'ZaloPay',logo:'<div style="background:#0068ff;border-radius:10px;padding:0.4rem 1rem;display:inline-block;margin-bottom:0.75rem;font-weight:900;font-size:1rem;color:#fff;">Zalo<span style="color:#00e5ff;">Pay</span></div>'},
+  acb:    {img:'img/qr-acb.webp',    sub:'ACB · 26996867',logo:'<div style="background:#003087;border-radius:10px;padding:0.4rem 1.2rem;display:inline-block;margin-bottom:0.75rem;font-weight:900;font-size:1.2rem;color:#fff;">ACB</div>'},
+  momo:   {img:'img/qr-momo.webp',   sub:'MoMo · *****331',logo:'<div style="background:#a50064;border-radius:10px;padding:0.4rem 1rem;display:inline-block;margin-bottom:0.75rem;font-weight:900;font-size:1rem;color:#fff;">MoMo</div>'}
+};
+
+function openQRFull(type) {
+  const d = qrData[type];
+  document.getElementById('qrFullImg').src = d.img;
+  document.getElementById('qrFullSub').textContent = d.sub;
+  document.getElementById('qrFullLogo').innerHTML = d.logo;
+  document.getElementById('qrFullModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeQRFull() {
+  document.getElementById('qrFullModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function openPayModal(name, price) {
+  document.getElementById('mTitle').textContent = name;
+  document.getElementById('mPrice').textContent = price;
+  const content = 'CLITUSPC ' + name.replace(/[^a-zA-Z0-9]/g,'').toUpperCase().slice(0,12);
+  document.getElementById('mContent').textContent = content;
+  const amt = price.replace(/[^0-9]/g,'');
+  document.getElementById('mQR').src = `https://img.vietqr.io/image/ACB-26996867-compact2.png?amount=${amt}&addInfo=${encodeURIComponent(content)}&accountName=THAI%20TUAN%20KIET`;
+  document.getElementById('payModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePayModal() {
+  document.getElementById('payModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+function cp(t) {
+  navigator.clipboard.writeText(t);
+  if(typeof showToast==='function') showToast('✅ Đã copy!','success',1500);
+}
+
+// ===== VIP =====
+</script>
+<script src="dist/interactions-vip.js"></script>
+<script src="dist/live-activity.js"></script>
+<script src="dist/chat.js"></script>
+<script src="dist/push-notify.js"></script>
+<script src="dist/mobile-nav.js"></script>
+<script src="dist/bug-report.js"></script>
+</body>
+</html>

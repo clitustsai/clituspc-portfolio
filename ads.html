@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#667eea">
+<title>Ad Marketplace — Clitus PC</title>
+<meta name="description" content="Đặt quảng cáo sản phẩm Shopee, TikTok Shop, Affiliate trên Clitus PC Portfolio.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="mobile-responsive.css">
+<link rel="stylesheet" href="mobile-ux.css">
+<link rel="stylesheet" href="mobile-fix.css">
+<link rel="stylesheet" href="modern.css">
+<link rel="stylesheet" href="responsive.css">
+<link rel="stylesheet" href="ads.css">
+<link rel="stylesheet" href="features.css">
+<link rel="stylesheet" href="fab-layout.css">
+<script src="dist/api.js" defer></script>
+<script src="dist/auth.js" defer></script>
+<script src="dist/nav.js" defer></script>
+<style>
+:root{
+    --g1:#667eea;
+    --g2:#764ba2;--g3:#f093fb;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    min-height:100vh;color:#fff;
+}
+.ads-wrap{max-width:1100px;margin:0 auto;padding:2rem 1.25rem 5rem;}
+/* Hero */
+.ads-hero{text-align:center;padding:2.5rem 1rem 2rem;}
+.ads-hero h1{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin:0 0 .5rem;
+  background:linear-gradient(135deg,#fff 0%,#c4b5fd 50%,#f9a8d4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ads-hero p{opacity:.7;font-size:.95rem;max-width:560px;margin:0 auto;}
+/* Tabs */
+.ads-tabs{display:flex;gap:.6rem;margin-bottom:1.5rem;flex-wrap:wrap;}
+.ads-tab{padding:.65rem 1.4rem;border:1.5px solid rgba(255,255,255,.2);border-radius:50px;
+  cursor:pointer;font-weight:700;font-size:.88rem;background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.75);transition:all .2s;backdrop-filter:blur(8px);}
+.ads-tab.active,.ads-tab:hover{background:#fff;color:var(--g1);border-color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.2);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+/* Glass card */
+.g-card{background:rgba(255,255,255,.07);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:1.5rem;margin-bottom:1.25rem;}
+.g-card h2{font-size:1.1rem;font-weight:800;margin:0 0 1.25rem;color:#fff;}
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:.4rem;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:.75rem!important;font-weight:700!important;color:rgba(255,255,255,.7)!important;text-transform:uppercase!important;letter-spacing:.05em!important;display:block!important;margin-bottom:.4rem!important;}
+input,select,textarea{padding:.65rem 1rem;background:rgba(255,255,255,.08);
+  border:1.5px solid rgba(255,255,255,.15);border-radius:12px;color:#fff;font-size:.9rem;
+  font-family:inherit;outline:none;transition:all .2s;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.3);}
+input:focus,select:focus,textarea:focus{border-color:rgba(102,126,234,.6);background:rgba(102,126,234,.1);}
+select option{background:#302b63;color:#fff;}
+textarea{resize:vertical;min-height:80px;}
+/* Plan cards */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.25rem;}
+@media(max-width:600px){.plan-grid{grid-template-columns:1fr;}}
+.plan-card{border:2px solid rgba(255,255,255,.15);border-radius:16px;padding:1.1rem;
+  cursor:pointer;transition:all .2s;text-align:center;background:rgba(255,255,255,.05);}
+.plan-card:hover{border-color:rgba(102,126,234,.5);}
+.plan-card.selected{border-color:#667eea;background:rgba(102,126,234,.2);}
+.plan-card h3{margin:0 0 .3rem;font-size:.95rem;color:#fff;}
+.plan-card .price{font-size:1.25rem;font-weight:900;color:#a5f3fc;}
+.plan-card .desc{font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.3rem;}
+/* Buttons */
+.btn-ads{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.5rem;border-radius:50px;
+  font-size:.88rem;font-weight:700;cursor:pointer;border:none;transition:all .25s;text-decoration:none;}
+.btn-primary-ads{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 6px 20px rgba(102,126,234,.4);}
+.btn-primary-ads:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(102,126,234,.55);}
+.btn-ghost{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2)!important;color:#fff;}
+.btn-ghost:hover{background:rgba(255,255,255,.18);}
+.btn-sm-ads{padding:.45rem 1rem;font-size:.78rem;}
+.btn-danger-ads{background:rgba(239,68,68,.2);border:1.5px solid rgba(239,68,68,.4)!important;color:#fca5a5;}
+/* Table */
+.ads-table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+th{text-align:left;padding:.75rem 1rem;color:rgba(255,255,255,.4);font-size:.72rem;
+  text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid rgba(255,255,255,.08);}
+td{padding:.85rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:middle;color:rgba(255,255,255,.85);}
+tr:last-child td{border-bottom:none;}
+/* Badge */
+.badge{display:inline-block;padding:.25rem .75rem;border-radius:50px;font-size:.72rem;font-weight:700;}
+.badge-pending{background:rgba(251,191,36,.15);color:#fbbf24;}
+.badge-paid{background:rgba(96,165,250,.15);color:#60a5fa;}
+.badge-active{background:rgba(74,222,128,.15);color:#4ade80;}
+.badge-expired{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);}
+.badge-rejected{background:rgba(248,113,113,.15);color:#f87171;}
+.badge-hidden{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);}
+/* Empty */
+.empty-state{text-align:center;padding:3rem 1rem;color:rgba(255,255,255,.3);}
+.empty-state .icon{font-size:2.5rem;margin-bottom:.75rem;}
+/* Alert */
+.ads-alert{padding:.85rem 1.1rem;border-radius:12px;margin-bottom:1rem;font-size:.88rem;font-weight:600;}
+.ads-alert-success{background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.3);color:#4ade80;}
+.ads-alert-error{background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;}
+/* Loading */
+.ads-loading{text-align:center;padding:3rem;color:rgba(255,255,255,.35);}
+.ads-loading i{font-size:1.8rem;animation:spin 1s linear infinite;display:block;margin-bottom:.6rem;}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* Img preview */
+.ad-thumb{width:44px;height:44px;object-fit:cover;border-radius:8px;vertical-align:middle;}
+.rejection-note{font-size:.75rem;color:#f87171;margin-top:.25rem;}
+/* AI btn row */
+.ai-row{display:flex;gap:.6rem;align-items:flex-start;}
+.ai-row textarea{flex:1;}
+/* Chart modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;
+  align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:#1a1a2e;border:1px solid rgba(255,255,255,.12);border-radius:20px;
+  padding:1.5rem;width:90%;max-width:560px;max-height:85vh;overflow:auto;}
+.modal-box h3{margin:0 0 1rem;font-size:1rem;color:#fff;}
+.modal-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.4rem;
+  cursor:pointer;float:right;line-height:1;}
+</style>
+</head>
+<body>
+<script src="dist/protect.js"></script>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">
+      <span class="logo-icon">💻</span>
+      <span class="logo-text">Clitus<span class="logo-accent">PC</span></span>
+    </a>
+    <ul id="navMenu">
+      <li><a href="index.html">Trang Chủ</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Công Cụ <i class="fas fa-chevron-down nav-chevron"></i></a>
+        <ul class="nav-dropdown-menu">
+          <li><a href="tools.html"><span class="dd-icon">🤖</span> AI Tools</a></li>
+          <li><a href="arcade.html"><span class="dd-icon">🎮</span> Arcade & Coins</a></li>
+          <li><a href="services.html"><span class="dd-icon">🛍️</span> Dịch Vụ</a></li>
+          <li><a href="roadmap.html"><span class="dd-icon">🗺️</span> Roadmap</a></li>
+          <li><a href="proposal.html"><span class="dd-icon">💼</span> Proposal</a></li>
+          <li><a href="invoice.html"><span class="dd-icon">🧾</span> Invoice</a></li>
+          <li><a href="payment.html"><span class="dd-icon">💳</span> Dịch Vụ & VIP</a></li>
+          <li><a href="ads.html"><span class="dd-icon">📢</span> Ad Marketplace</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+      <div class="nav-auth-slot"></div>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<!-- Loading -->
+<div id="adsLoading" class="ads-loading" style="padding:5rem 1rem">
+  <i class="fas fa-spinner"></i>
+  Đang tải...
+</div>
+
+<!-- Login wall -->
+<div id="ads-login-wall" style="display:none;min-height:60vh;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:3rem 1rem">
+  <div style="font-size:3rem;margin-bottom:1rem">🔐</div>
+  <h2 style="font-size:1.4rem;font-weight:900;margin:0 0 .5rem;background:linear-gradient(135deg,#fff,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Đăng nhập để tiếp tục</h2>
+  <p style="color:rgba(255,255,255,.55);margin:0 0 1.5rem;font-size:.9rem">Bạn cần đăng nhập để đăng và quản lý quảng cáo</p>
+  <button onclick="if(typeof openAuthModal==='function') openAuthModal('login'); else window.location.href='index.html'" class="btn-ads btn-primary-ads" style="font-size:1rem;padding:.85rem 2rem">
+    <i class="fas fa-sign-in-alt"></i> Đăng nhập ngay
+  </button>
+  <a href="index.html" style="margin-top:1rem;color:rgba(255,255,255,.4);font-size:.85rem;text-decoration:none">← Về trang chủ</a>
+</div>
+
+<!-- Main app -->
+<div id="adsMain" class="ads-wrap" style="display:none">
+  <div class="ads-hero">
+    <h1>📢 Ad Marketplace</h1>
+    <p>Đặt quảng cáo sản phẩm · Thuê Banner · Đăng Bài PR — tiếp cận hàng nghìn người dùng</p>
+  </div>
+
+  <div class="ads-tabs">
+    <button class="ads-tab active" onclick="switchTab('create')"><i class="fas fa-bullhorn"></i> Quảng cáo</button>
+    <button class="ads-tab" onclick="switchTab('banner')"><i class="fas fa-image"></i> Banner</button>
+    <button class="ads-tab" onclick="switchTab('pr')"><i class="fas fa-newspaper"></i> Bài PR</button>
+    <button class="ads-tab" onclick="switchTab('my-ads')"><i class="fas fa-list"></i> Của tôi</button>
+    <button class="ads-tab" onclick="switchTab('payments')"><i class="fas fa-credit-card"></i> Thanh toán</button>
+  </div>
+
+  <!-- TAB: TẠO AD -->
+  <div id="tab-create" class="tab-content active">
+    <div class="g-card">
+      <h2><i class="fas fa-bullhorn" style="color:#a5f3fc;margin-right:.5rem"></i>Thông tin sản phẩm</h2>
+      <div id="create-alert"></div>
+      <form id="create-ad-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tên sản phẩm *</label>
+            <div class="ai-row" style="gap:.5rem">
+              <input type="text" id="ad-name" placeholder="VD: Áo thun nam basic" maxlength="200" required style="flex:1">
+              <button type="button" class="btn-ads btn-ghost btn-sm-ads" id="ai-fill-btn" onclick="aiFillForm()" title="AI tự điền toàn bộ form">🤖 AI điền</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nền tảng</label>
+            <select id="ad-platform">
+              <option value="shopee">🛒 Shopee</option>
+              <option value="tiktok">🎵 TikTok Shop</option>
+              <option value="affiliate">🔗 Affiliate</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Link sản phẩm *</label>
+            <input type="url" id="ad-link" placeholder="https://shopee.vn/..." required>
+          </div>
+          <div class="form-group full">
+            <label>Ảnh sản phẩm (HTTPS)</label>
+            <input type="url" id="ad-image" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label>Giá sản phẩm (VND)</label>
+            <input type="number" id="ad-price" placeholder="0" min="0">
+          </div>
+          <div class="form-group">
+            <label>Vị trí hiển thị</label>
+            <select id="ad-slot">
+              <option value="banner_sidebar">📌 Banner Sidebar</option>
+              <option value="banner_header">🔝 Banner Header</option>
+              <option value="banner_mid_article">📄 Banner Giữa Bài</option>
+              <option value="top_vip">⭐ Top VIP</option>
+              <option value="pinned_post">📌 Ghim Bài Viết</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label>Mô tả sản phẩm</label>
+            <div class="ai-row">
+              <textarea id="ad-desc" placeholder="Mô tả ngắn về sản phẩm..." maxlength="1000"></textarea>
+              <button type="button" class="btn-ads btn-ghost btn-sm-ads" id="ai-desc-btn" onclick="generateAiDesc()">🤖 AI viết</button>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:.85rem;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 .85rem">Chọn gói quảng cáo</h3>
+        <div class="plan-grid">
+          <div class="plan-card selected" data-plan="standard" onclick="selectPlan(this)">
+            <h3>Standard</h3>
+            <div class="price">50.000₫</div>
+            <div class="desc">7 ngày · Banner Sidebar</div>
+          </div>
+          <div class="plan-card" data-plan="premium" onclick="selectPlan(this)">
+            <h3>Premium</h3>
+            <div class="price">150.000₫</div>
+            <div class="desc">30 ngày · Header + Sidebar</div>
+          </div>
+          <div class="plan-card" data-plan="vip_boost" onclick="selectPlan(this)">
+            <h3>⭐ VIP Boost</h3>
+            <div class="price">300.000₫</div>
+            <div class="desc">7 ngày · Top VIP · Ưu tiên cao nhất</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-ads btn-primary-ads"><i class="fas fa-paper-plane"></i> Đăng & Thanh toán</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAB: BANNER -->
+  <div id="tab-banner" class="tab-content">
+    <!-- Pricing info -->
+    <div class="g-card" style="margin-bottom:1rem">
+      <h2><i class="fas fa-image" style="color:#a5f3fc;margin-right:.5rem"></i>Thuê Banner Quảng Cáo</h2>
+      <p style="color:rgba(255,255,255,.55);font-size:.88rem;margin:0 0 1.25rem">Hiển thị banner của bạn trên các vị trí nổi bật — Header, Sidebar, Giữa bài viết</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.5rem">
+        <div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;padding:1.1rem;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:.4rem">📌</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">Sidebar</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#a5f3fc">50.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">7 ngày</div>
+        </div>
+        <div style="background:rgba(102,126,234,.12);border:1.5px solid rgba(102,126,234,.4);border-radius:16px;padding:1.1rem;text-align:center;position:relative">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:.65rem;font-weight:900;padding:2px 10px;border-radius:50px;white-space:nowrap">PHỔ BIẾN</div>
+          <div style="font-size:1.5rem;margin-bottom:.4rem">🔝</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">Header</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#a5f3fc">150.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">30 ngày</div>
+        </div>
+        <div style="background:rgba(245,87,108,.08);border:1.5px solid rgba(245,87,108,.3);border-radius:16px;padding:1.1rem;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:.4rem">⭐</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">VIP Boost</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#a5f3fc">300.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">7 ngày · Ưu tiên cao nhất</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1rem;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7">
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Kích thước banner: 728×90 (Header), 300×250 (Sidebar), 468×60 (Giữa bài)</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Định dạng: JPG, PNG, WebP, GIF (max 500KB)</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Admin duyệt trong 1-2 giờ sau khi xác nhận thanh toán</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Thống kê click & impression real-time</div>
+      </div>
+    </div>
+
+    <!-- Banner form (dùng lại form quảng cáo với slot = banner) -->
+    <div class="g-card">
+      <h2><i class="fas fa-plus-circle" style="color:#c4b5fd;margin-right:.5rem"></i>Đặt Banner Ngay</h2>
+      <div id="banner-alert"></div>
+      <form id="banner-form">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Tên thương hiệu / sản phẩm *</label>
+            <input type="text" id="banner-name" placeholder="VD: Shop Thời Trang ABC" maxlength="200" required>
+          </div>
+          <div class="form-group full">
+            <label>URL Banner (ảnh HTTPS) *</label>
+            <input type="url" id="banner-image" placeholder="https://... (JPG/PNG/WebP)" required>
+          </div>
+          <div class="form-group full">
+            <label>Link đích khi click *</label>
+            <input type="url" id="banner-link" placeholder="https://shopee.vn/..." required>
+          </div>
+          <div class="form-group">
+            <label>Vị trí hiển thị</label>
+            <select id="banner-slot">
+              <option value="banner_sidebar">📌 Sidebar (300×250)</option>
+              <option value="banner_header">🔝 Header (728×90)</option>
+              <option value="banner_mid_article">📄 Giữa bài viết (468×60)</option>
+              <option value="top_vip">⭐ Top VIP (nổi bật nhất)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Nền tảng</label>
+            <select id="banner-platform">
+              <option value="shopee">🛒 Shopee</option>
+              <option value="tiktok">🎵 TikTok Shop</option>
+              <option value="affiliate">🔗 Affiliate / Website</option>
+            </select>
+          </div>
+        </div>
+
+        <h3 style="font-size:.85rem;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 .85rem">Chọn gói</h3>
+        <div class="plan-grid" id="banner-plan-grid">
+          <div class="plan-card selected" data-plan="standard" onclick="selectBannerPlan(this)">
+            <h3>Standard</h3><div class="price">50.000₫</div><div class="desc">7 ngày · Sidebar</div>
+          </div>
+          <div class="plan-card" data-plan="premium" onclick="selectBannerPlan(this)">
+            <h3>Premium</h3><div class="price">150.000₫</div><div class="desc">30 ngày · Header</div>
+          </div>
+          <div class="plan-card" data-plan="vip_boost" onclick="selectBannerPlan(this)">
+            <h3>⭐ VIP Boost</h3><div class="price">300.000₫</div><div class="desc">7 ngày · Top VIP</div>
+          </div>
+        </div>
+        <button type="submit" class="btn-ads btn-primary-ads"><i class="fas fa-paper-plane"></i> Đặt Banner & Thanh toán</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- TAB: BÀI PR -->
+  <div id="tab-pr" class="tab-content">
+    <!-- Pricing -->
+    <div class="g-card" style="margin-bottom:1rem">
+      <h2><i class="fas fa-newspaper" style="color:#f9a8d4;margin-right:.5rem"></i>Đăng Bài PR / Sponsored</h2>
+      <p style="color:rgba(255,255,255,.55);font-size:.88rem;margin:0 0 1.25rem">Bài viết được tài trợ xuất hiện trên blog và trang chủ — tăng nhận diện thương hiệu</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.5rem">
+        <div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:16px;padding:1.1rem;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:.4rem">📝</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">Standard</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#f9a8d4">100.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">7 ngày · Blog</div>
+        </div>
+        <div style="background:rgba(249,168,212,.08);border:1.5px solid rgba(249,168,212,.3);border-radius:16px;padding:1.1rem;text-align:center;position:relative">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;font-size:.65rem;font-weight:900;padding:2px 10px;border-radius:50px;white-space:nowrap">PHỔ BIẾN</div>
+          <div style="font-size:1.5rem;margin-bottom:.4rem">🌟</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">Premium</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#f9a8d4">250.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">30 ngày · Blog + Trang chủ</div>
+        </div>
+        <div style="background:rgba(245,158,11,.08);border:1.5px solid rgba(245,158,11,.3);border-radius:16px;padding:1.1rem;text-align:center">
+          <div style="font-size:1.5rem;margin-bottom:.4rem">🏆</div>
+          <div style="font-weight:800;font-size:.9rem;margin-bottom:.25rem">Featured</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#f9a8d4">500.000₫</div>
+          <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">14 ngày · Ghim đầu trang</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1rem;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7">
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Bài viết có nhãn "Được tài trợ" rõ ràng</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Hỗ trợ hình ảnh, link, thông tin liên hệ</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Admin review nội dung trước khi đăng (1-4 giờ)</div>
+        <div><i class="fas fa-check" style="color:#4ade80;margin-right:.5rem"></i>Thống kê lượt xem bài viết</div>
+      </div>
+    </div>
+
+    <!-- PR form -->
+    <div class="g-card">
+      <h2><i class="fas fa-pen-nib" style="color:#f9a8d4;margin-right:.5rem"></i>Soạn Bài PR</h2>
+      <div id="pr-alert"></div>
+      <form id="pr-form">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Tiêu đề bài viết *</label>
+            <input type="text" id="pr-title" placeholder="VD: Ra mắt sản phẩm mới — Áo thun cao cấp ABC" maxlength="200" required>
+          </div>
+          <div class="form-group full">
+            <label>Ảnh đại diện bài viết (HTTPS)</label>
+            <input type="url" id="pr-image" placeholder="https://... (JPG/PNG/WebP)">
+          </div>
+          <div class="form-group full">
+            <label>Nội dung bài viết *</label>
+            <textarea id="pr-content" placeholder="Viết nội dung bài PR của bạn... (hỗ trợ Markdown)" style="min-height:180px" maxlength="10000" required></textarea>
+          </div>
+          <div class="form-group full">
+            <label>Tóm tắt (hiển thị trên danh sách)</label>
+            <input type="text" id="pr-excerpt" placeholder="Mô tả ngắn 1-2 câu về bài viết" maxlength="500">
+          </div>
+          <div class="form-group">
+            <label>Link sản phẩm / website</label>
+            <input type="url" id="pr-link" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label>Thông tin liên hệ</label>
+            <input type="text" id="pr-contact" placeholder="SĐT, Zalo, Facebook..." maxlength="200">
+          </div>
+        </div>
+
+        <h3 style="font-size:.85rem;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 .85rem">Chọn gói PR</h3>
+        <div class="plan-grid" id="pr-plan-grid">
+          <div class="plan-card selected" data-plan="standard" onclick="selectPrPlan(this)">
+            <h3>Standard</h3><div class="price" style="color:#f9a8d4">100.000₫</div><div class="desc">7 ngày · Blog</div>
+          </div>
+          <div class="plan-card" data-plan="premium" onclick="selectPrPlan(this)">
+            <h3>Premium</h3><div class="price" style="color:#f9a8d4">250.000₫</div><div class="desc">30 ngày · Blog + Trang chủ</div>
+          </div>
+          <div class="plan-card" data-plan="featured" onclick="selectPrPlan(this)">
+            <h3>🏆 Featured</h3><div class="price" style="color:#f9a8d4">500.000₫</div><div class="desc">14 ngày · Ghim đầu trang</div>
+          </div>
+        </div>
+        <button type="submit" class="btn-ads btn-primary-ads" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><i class="fas fa-paper-plane"></i> Gửi Bài PR & Thanh toán</button>
+      </form>
+    </div>
+
+    <!-- My PR posts -->
+    <div class="g-card" style="margin-top:1.25rem">
+      <h2><i class="fas fa-list" style="color:#f9a8d4;margin-right:.5rem"></i>Bài PR của tôi</h2>
+      <div id="my-pr-list"><div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div></div>
+    </div>
+  </div>
+
+  <!-- TAB: MY ADS -->
+  <div id="tab-my-ads" class="tab-content">
+    <div id="my-ads-alert"></div>
+    <div id="my-ads-list">
+      <div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div>
+    </div>
+  </div>
+
+  <!-- TAB: PAYMENTS -->
+  <div id="tab-payments" class="tab-content">
+    <div class="g-card">
+      <h2><i class="fas fa-receipt" style="color:#a5f3fc;margin-right:.5rem"></i>Lịch sử thanh toán</h2>
+      <div id="payments-list">
+        <div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PR Payment modal -->
+<div id="pr-pay-modal" class="modal-overlay">
+  <div class="modal-box" style="max-width:400px;background:#1a1a2e">
+    <button class="modal-close" onclick="document.getElementById('pr-pay-modal').classList.remove('open')">×</button>
+    <h3 style="margin:0 0 1.25rem;font-size:1rem;font-weight:800;color:#fff">📲 Thanh toán Bài PR</h3>
+    <div id="pr-pay-content"></div>
+    <button class="btn-ads btn-primary-ads" style="width:100%;justify-content:center;margin-top:1rem;background:linear-gradient(135deg,#f093fb,#f5576c)" onclick="document.getElementById('pr-pay-modal').classList.remove('open');loadMyPr()">
+      <i class="fas fa-check"></i> Đã chuyển khoản xong
+    </button>
+  </div>
+</div>
+
+<!-- QR Pay modal -->
+<div id="qr-pay-modal" class="modal-overlay">
+  <div class="modal-box" style="max-width:400px;background:#1a1a2e">
+    <button class="modal-close" onclick="document.getElementById('qr-pay-modal').classList.remove('open');switchTab('my-ads')">×</button>
+    <h3 style="margin:0 0 1.25rem;font-size:1rem;font-weight:800;color:#fff">📲 Thanh toán chuyển khoản</h3>
+    <div id="qr-pay-content"></div>
+    <button class="btn-ads btn-primary-ads" style="width:100%;justify-content:center;margin-top:1rem" onclick="document.getElementById('qr-pay-modal').classList.remove('open');switchTab('my-ads')">
+      <i class="fas fa-check"></i> Đã chuyển khoản xong
+    </button>
+  </div>
+</div>
+
+<!-- Chart modal -->
+<div id="chart-modal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeChart()">×</button>
+    <h3 id="chart-title">Thống kê</h3>
+    <canvas id="stats-chart"></canvas>
+    <div id="chart-stats" style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap"></div>
+  </div>
+</div>
+
+<!-- Payment modal -->
+<div id="payment-modal" class="modal-overlay">
+  <div class="modal-box" style="max-width:480px">
+    <button class="modal-close" onclick="closePaymentModal()">×</button>
+    <h3 style="margin:0 0 1.25rem;font-size:1.1rem;font-weight:800;color:#fff">💳 Chọn gói thanh toán</h3>
+    <div id="pay-plan-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1.25rem">
+      <div class="plan-card selected" data-plan="standard" onclick="selectPayPlan(this)">
+        <h3>Standard</h3><div class="price" style="font-size:1rem">50.000₫</div><div class="desc">7 ngày</div>
+      </div>
+      <div class="plan-card" data-plan="premium" onclick="selectPayPlan(this)">
+        <h3>Premium</h3><div class="price" style="font-size:1rem">150.000₫</div><div class="desc">30 ngày</div>
+      </div>
+      <div class="plan-card" data-plan="vip_boost" onclick="selectPayPlan(this)">
+        <h3>⭐ VIP</h3><div class="price" style="font-size:1rem">300.000₫</div><div class="desc">7 ngày Top</div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:rgba(255,255,255,.45);margin:0 0 1rem">Chọn phương thức thanh toán:</p>
+    <div style="display:flex;gap:.75rem">
+      <button class="btn-ads btn-primary-ads" style="flex:1;justify-content:center;background:linear-gradient(135deg,#e31837,#c0392b)" onclick="confirmPay('acb', this)">
+        <i class="fas fa-university"></i> ACB Bank
+      </button>
+      <button class="btn-ads btn-primary-ads" style="flex:1;justify-content:center;background:linear-gradient(135deg,#0068ff,#00c6ff)" onclick="confirmPay('zalopay', this)">
+        <i class="fas fa-wallet"></i> ZaloPay
+      </button>
+    </div>
+    <div id="pay-modal-alert" style="margin-top:.75rem"></div>
+  </div>
+</div>
+
+
+<script src="dist/interactions-vip.js"></script>
+<script src="dist/live-activity.js"></script>
+<script src="dist/chat.js"></script>
+<script src="dist/push-notify.js"></script>
+<script src="dist/mobile-nav.js"></script>
+<script src="dist/bug-report.js"></script>
+<script src="ads.js"></script>
+<script>
+const ADS_API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:3001' : window.location.origin;
+
+let selectedPlan = 'standard';
+let myAds = [];
+let pendingAdId = null;
+let payingAdId = null;
+let payingPlan = 'standard';
+
+const PLAN_PRICES = { standard: 50000, premium: 150000, vip_boost: 300000 };
+const PLAN_LABELS = { standard: 'Standard', premium: 'Premium', vip_boost: 'VIP Boost' };
+
+// ACB & ZaloPay info — thay bằng thông tin thật của bạn
+const PAYMENT_INFO = {
+  acb: {
+    bank: 'ACB',
+    account: '26996867',
+    name: 'THAI TUAN KIET',
+    qr: 'img/qr-acb.webp'
+  },
+  zalopay: {
+    phone: '0906857331',
+    name: 'THAI TUAN KIET',
+    qr: 'img/qr-zalopay.webp'
+  }
+};
+
+function getToken() {
+  return localStorage.getItem('user_token') || localStorage.getItem('auth_token');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.ads-tab').forEach((b, i) => {
+    b.classList.toggle('active', ['create','banner','pr','my-ads','payments'][i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  if (tab === 'my-ads') loadMyAds();
+  if (tab === 'payments') loadPayments();
+  if (tab === 'pr') loadMyPr();
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function aiFillForm() {
+  const name = document.getElementById('ad-name').value.trim();
+  if (!name) return showAlert('create-alert', 'Nhập tên sản phẩm trước rồi bấm AI điền');
+  const btn = document.getElementById('ai-fill-btn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
+  try {
+    const platform = document.getElementById('ad-platform').value;
+    const r = await fetch(`${ADS_API}/api/ads/ai-fill`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify({ product_name: name, platform })
+    });
+    const d = await r.json();
+    if (!r.ok) { showAlert('create-alert', d.error || 'Lỗi AI'); btn.innerHTML = '🤖 AI điền'; btn.disabled = false; return; }
+    if (d.description) document.getElementById('ad-desc').value = d.description;
+    if (d.price_suggestion) document.getElementById('ad-price').value = d.price_suggestion;
+    if (d.slot_suggestion) document.getElementById('ad-slot').value = d.slot_suggestion;
+    showAlert('create-alert', '✅ AI đã điền form! Kiểm tra và chỉnh sửa nếu cần.', 'success');
+  } catch(e) { showAlert('create-alert', 'Lỗi kết nối'); }
+  btn.innerHTML = '🤖 AI điền'; btn.disabled = false;
+}
+
+function selectPlan(el) {
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPlan = el.dataset.plan;
+}
+
+function selectPayPlan(el) {
+  document.querySelectorAll('#pay-plan-grid .plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  payingPlan = el.dataset.plan;
+}
+
+function openPaymentModal(adId, currentPlan) {
+  payingAdId = adId;
+  payingPlan = currentPlan || 'standard';
+  document.querySelectorAll('#pay-plan-grid .plan-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.plan === payingPlan);
+  });
+  document.getElementById('pay-modal-alert').innerHTML = '';
+  document.getElementById('payment-modal').classList.add('open');
+}
+
+function closePaymentModal() {
+  document.getElementById('payment-modal').classList.remove('open');
+}
+
+async function confirmPay(method, btn) {
+  const origHtml = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+  const price = PLAN_PRICES[payingPlan] || 50000;
+  const planLabel = PLAN_LABELS[payingPlan] || payingPlan;
+  const info = PAYMENT_INFO[method];
+
+  // Ghi nhận ad đã chọn plan + method (pending)
+  try {
+    await fetch(`${ADS_API}/api/ads/${payingAdId}/pay/${method === 'acb' ? 'manual' : 'manual'}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify({ plan: payingPlan, method })
+    }).catch(() => {});
+  } catch(e) {}
+
+  btn.disabled = false; btn.innerHTML = origHtml;
+  closePaymentModal();
+
+  // Hiện QR modal
+  const content = method === 'acb'
+    ? `<div style="text-align:center">
+        <div style="background:linear-gradient(135deg,#e31837,#c0392b);color:#fff;font-weight:900;font-size:1rem;padding:.5rem 1.2rem;border-radius:50px;display:inline-block;margin-bottom:1rem">🏦 ACB Bank</div>
+        <img src="${info.qr}" style="width:200px;height:200px;border-radius:16px;border:3px solid rgba(255,255,255,.15);display:block;margin:0 auto 1rem" onerror="this.style.display='none'">
+        <div style="background:rgba(255,255,255,.06);border-radius:14px;padding:1rem;text-align:left;font-size:.85rem">
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Ngân hàng</span><span style="font-weight:700">ACB</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tài khoản</span><span style="font-weight:700">${info.account}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Chủ tài khoản</span><span style="font-weight:700">${info.name}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tiền</span><span style="font-weight:900;color:#4ade80">${price.toLocaleString('vi-VN')}₫</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0"><span style="color:rgba(255,255,255,.5)">Nội dung CK</span><span style="font-weight:700;color:#a5f3fc">AD${payingAdId} ${planLabel}</span></div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.85rem">Sau khi chuyển khoản, admin sẽ duyệt trong 1-2 giờ</p>
+      </div>`
+    : `<div style="text-align:center">
+        <div style="background:linear-gradient(135deg,#0068ff,#00c6ff);color:#fff;font-weight:900;font-size:1rem;padding:.5rem 1.2rem;border-radius:50px;display:inline-block;margin-bottom:1rem">💙 ZaloPay</div>
+        <img src="${info.qr}" style="width:200px;height:200px;border-radius:16px;border:3px solid rgba(255,255,255,.15);display:block;margin:0 auto 1rem" onerror="this.style.display='none'">
+        <div style="background:rgba(255,255,255,.06);border-radius:14px;padding:1rem;text-align:left;font-size:.85rem">
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số điện thoại</span><span style="font-weight:700">${info.phone}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Tên</span><span style="font-weight:700">${info.name}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tiền</span><span style="font-weight:900;color:#4ade80">${price.toLocaleString('vi-VN')}₫</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0"><span style="color:rgba(255,255,255,.5)">Nội dung</span><span style="font-weight:700;color:#a5f3fc">AD${payingAdId} ${planLabel}</span></div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.85rem">Sau khi thanh toán, admin sẽ duyệt trong 1-2 giờ</p>
+      </div>`;
+
+  document.getElementById('qr-pay-content').innerHTML = content;
+  document.getElementById('qr-pay-modal').classList.add('open');
+}
+
+async function deleteAd(adId) {
+  try {
+    const r = await fetch(`${ADS_API}/api/ads/${adId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    const d = await r.json();
+    if (!r.ok) return showAlert('my-ads-alert', d.error || 'Không thể xóa', 'error');
+    showAlert('my-ads-alert', '✅ Đã xóa quảng cáo', 'success');
+    loadMyAds();
+  } catch(e) { showAlert('my-ads-alert', 'Lỗi kết nối'); }
+}
+
+function showAlert(id, msg, type = 'error') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = `<div class="ads-alert ads-alert-${type}">${msg}</div>`;
+  setTimeout(() => { el.innerHTML = ''; }, 5000);
+}
+
+async function generateAiDesc() {
+  const name = document.getElementById('ad-name').value.trim();
+  if (!name) return showAlert('create-alert', 'Nhập tên sản phẩm trước');
+  if (!pendingAdId) return showAlert('create-alert', 'Lưu quảng cáo trước để dùng AI — nhấn "Đăng quảng cáo" rồi quay lại chỉnh sửa');
+  const btn = document.getElementById('ai-desc-btn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
+  try {
+    const r = await fetch(`${ADS_API}/api/ads/${pendingAdId}/ai-description`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` }
+    });
+    const d = await r.json();
+    if (d.description) {
+      document.getElementById('ad-desc').value = d.description;
+      showAlert('create-alert', '✅ AI đã viết mô tả! Bạn có thể chỉnh sửa thêm.', 'success');
+    } else {
+      showAlert('create-alert', d.error || 'Lỗi AI');
+    }
+  } catch(e) { showAlert('create-alert', 'Lỗi kết nối'); }
+  btn.innerHTML = '🤖 AI viết'; btn.disabled = false;
+}
+
+document.getElementById('create-ad-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type=submit]');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+  const body = {
+    product_name: document.getElementById('ad-name').value,
+    link: document.getElementById('ad-link').value,
+    image_url: document.getElementById('ad-image').value,
+    price: parseInt(document.getElementById('ad-price').value) || 0,
+    description: document.getElementById('ad-desc').value,
+    platform: document.getElementById('ad-platform').value,
+    slot: document.getElementById('ad-slot').value
+  };
+  try {
+    const r = await fetch(`${ADS_API}/api/ads`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (!r.ok) { showAlert('create-alert', d.error || 'Lỗi tạo quảng cáo'); btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Đăng & Thanh toán'; return; }
+    pendingAdId = d.id;
+    // Mở payment modal để chọn plan + method
+    openPaymentModal(d.id, selectedPlan);
+  } catch(e) { showAlert('create-alert', 'Lỗi kết nối'); }
+  btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Đăng & Thanh toán';
+});
+
+
+async function loadMyAds() {
+  const token = getToken();
+  const container = document.getElementById('my-ads-list');
+  if (!token) { container.innerHTML = '<div class="g-card"><p style="color:#f87171">Vui lòng đăng nhập</p></div>'; return; }
+  container.innerHTML = '<div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div>';
+  try {
+    const r = await fetch(`${ADS_API}/api/ads/my`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const ads = await r.json();
+    myAds = ads;
+    if (!ads.length) {
+      container.innerHTML = '<div class="g-card"><div class="empty-state"><div class="icon">📭</div><p>Chưa có quảng cáo nào. Hãy đăng quảng cáo đầu tiên!</p></div></div>';
+      return;
+    }
+    container.innerHTML = `<div class="g-card"><div class="ads-table-wrap"><table>
+      <thead><tr>
+        <th>Sản phẩm</th><th>Trạng thái</th><th>Slot</th>
+        <th>Clicks</th><th>Views</th><th>CTR</th><th>Còn lại</th><th></th>
+      </tr></thead>
+      <tbody>${ads.map(ad => `<tr>
+        <td>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            ${ad.image_url ? `<img src="${ad.image_url}" class="ad-thumb" onerror="this.style.display='none'">` : '<div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:1.2rem">📦</div>'}
+            <div>
+              <div style="font-weight:700;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(ad.product_name)}</div>
+              ${ad.status === 'rejected' ? `<div class="rejection-note"><i class="fas fa-times-circle"></i> ${escHtml(ad.rejection_reason || 'Bị từ chối')}</div>` : ''}
+            </div>
+          </div>
+        </td>
+        <td><span class="badge badge-${ad.status}">${statusLabel(ad.status)}</span></td>
+        <td style="font-size:.78rem;color:rgba(255,255,255,.5)">${slotLabel(ad.slot)}</td>
+        <td>${ad.click_count}</td>
+        <td>${ad.impression_count}</td>
+        <td>${(ad.ctr * 100).toFixed(2)}%</td>
+        <td>${ad.days_remaining !== null ? ad.days_remaining + ' ngày' : '—'}</td>
+        <td style="white-space:nowrap;display:flex;gap:.35rem;align-items:center;flex-wrap:wrap">
+          <button class="btn-ads btn-ghost btn-sm-ads" onclick="showStats(${ad.id})" title="Xem thống kê"><i class="fas fa-chart-bar"></i></button>
+          ${ad.status === 'pending' ? `<button class="btn-ads btn-primary-ads btn-sm-ads" onclick="openPaymentModal(${ad.id},'standard')"><i class="fas fa-credit-card"></i> Thanh toán</button>` : ''}
+          ${['pending','rejected'].includes(ad.status) ? `<button class="btn-ads btn-danger-ads btn-sm-ads" onclick="deleteAd(${ad.id})"><i class="fas fa-trash"></i></button>` : ''}
+        </td>
+      </tr>`).join('')}
+      </tbody>
+    </table></div></div>`;
+  } catch(e) {
+    container.innerHTML = '<div class="g-card"><p style="color:#f87171">Lỗi tải dữ liệu</p></div>';
+  }
+}
+
+async function loadPayments() {
+  const container = document.getElementById('payments-list');
+  container.innerHTML = '<div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div>';
+  try {
+    const r = await fetch(`${ADS_API}/api/ads/my`, {
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    const ads = await r.json();
+    if (!ads.length) {
+      container.innerHTML = '<div class="empty-state"><div class="icon">💳</div><p>Chưa có giao dịch nào</p></div>';
+      return;
+    }
+    container.innerHTML = `<div class="ads-table-wrap"><table>
+      <thead><tr><th>Sản phẩm</th><th>Trạng thái</th><th>Ngày tạo</th><th>Hết hạn</th></tr></thead>
+      <tbody>${ads.map(ad => `<tr>
+        <td style="font-weight:600">${ad.product_name}</td>
+        <td><span class="badge badge-${ad.status}">${statusLabel(ad.status)}</span></td>
+        <td style="font-size:.8rem;color:rgba(255,255,255,.5)">${new Date(ad.created_at).toLocaleDateString('vi-VN')}</td>
+        <td style="font-size:.8rem;color:rgba(255,255,255,.5)">${ad.expires_at ? new Date(ad.expires_at).toLocaleDateString('vi-VN') : '—'}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table></div>`;
+  } catch(e) {
+    container.innerHTML = '<p style="color:#f87171">Lỗi tải dữ liệu</p>';
+  }
+}
+
+async function showStats(adId) {
+  try {
+    const r = await fetch(`${ADS_API}/api/ads/${adId}/stats`, {
+      headers: { 'Authorization': `Bearer ${getToken()}` }
+    });
+    const d = await r.json();
+    const ad = myAds.find(a => a.id === adId);
+    document.getElementById('chart-title').textContent = ad?.product_name || 'Thống kê';
+    document.getElementById('chart-stats').innerHTML = `
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:.85rem 1.1rem;flex:1;text-align:center">
+        <div style="font-size:1.5rem;font-weight:900;color:#a5f3fc">${d.click_count}</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">Clicks</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:.85rem 1.1rem;flex:1;text-align:center">
+        <div style="font-size:1.5rem;font-weight:900;color:#c4b5fd">${d.impression_count}</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">Impressions</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:.85rem 1.1rem;flex:1;text-align:center">
+        <div style="font-size:1.5rem;font-weight:900;color:#f9a8d4">${(d.ctr * 100).toFixed(2)}%</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.2rem">CTR</div>
+      </div>`;
+    // Simple canvas bar chart
+    const canvas = document.getElementById('stats-chart');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width = canvas.offsetWidth || 480;
+    const H = canvas.height = 160;
+    ctx.clearRect(0, 0, W, H);
+    const data = [d.click_count, d.impression_count];
+    const labels = ['Clicks', 'Impressions'];
+    const colors = ['#667eea', '#764ba2'];
+    const max = Math.max(...data, 1);
+    const barW = W / 5;
+    data.forEach((val, i) => {
+      const x = (i + 0.75) * W / 2 - barW / 2;
+      const h = Math.max((val / max) * (H - 30), val > 0 ? 4 : 0);
+      ctx.fillStyle = colors[i];
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(x, H - h - 20, barW, h, 6);
+      else ctx.rect(x, H - h - 20, barW, h);
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.7)';
+      ctx.font = 'bold 13px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(val, x + barW / 2, H - h - 26);
+      ctx.fillStyle = 'rgba(255,255,255,.4)';
+      ctx.font = '11px sans-serif';
+      ctx.fillText(labels[i], x + barW / 2, H - 4);
+    });
+    document.getElementById('chart-modal').classList.add('open');
+  } catch(e) { alert('Lỗi tải stats'); }
+}
+
+function closeChart() {
+  document.getElementById('chart-modal').classList.remove('open');
+}
+
+function statusLabel(s) {
+  return { pending:'Chờ duyệt', paid:'Đã thanh toán', active:'Đang chạy', expired:'Hết hạn', rejected:'Bị từ chối', hidden:'Đã ẩn' }[s] || s;
+}
+function slotLabel(s) {
+  return { top_vip:'⭐ Top VIP', pinned_post:'📌 Ghim bài', banner_header:'🔝 Header', banner_sidebar:'📌 Sidebar', banner_mid_article:'📄 Giữa bài' }[s] || s;
+}
+
+// ── BANNER ──────────────────────────────────────────────
+let selectedBannerPlan = 'standard';
+const BANNER_PLAN_PRICES = { standard: 50000, premium: 150000, vip_boost: 300000 };
+const BANNER_PLAN_LABELS = { standard: 'Standard', premium: 'Premium', vip_boost: 'VIP Boost' };
+
+function selectBannerPlan(el) {
+  document.querySelectorAll('#banner-plan-grid .plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedBannerPlan = el.dataset.plan;
+}
+
+document.getElementById('banner-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type=submit]');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+  const body = {
+    product_name: document.getElementById('banner-name').value,
+    image_url: document.getElementById('banner-image').value,
+    link: document.getElementById('banner-link').value,
+    slot: document.getElementById('banner-slot').value,
+    platform: document.getElementById('banner-platform').value,
+    description: 'Banner quảng cáo'
+  };
+  try {
+    const r = await fetch(`${ADS_API}/api/ads`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (!r.ok) { showAlert('banner-alert', d.error || 'Lỗi tạo banner'); btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Đặt Banner & Thanh toán'; return; }
+    payingAdId = d.id;
+    payingPlan = selectedBannerPlan;
+    document.querySelectorAll('#pay-plan-grid .plan-card').forEach(c => c.classList.toggle('selected', c.dataset.plan === payingPlan));
+    document.getElementById('pay-modal-alert').innerHTML = '';
+    document.getElementById('payment-modal').classList.add('open');
+  } catch(e) { showAlert('banner-alert', 'Lỗi kết nối'); }
+  btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Đặt Banner & Thanh toán';
+});
+
+// ── BÀI PR ──────────────────────────────────────────────
+let selectedPrPlan = 'standard';
+let pendingPrId = null;
+const PR_PLAN_PRICES = { standard: 100000, premium: 250000, featured: 500000 };
+const PR_PLAN_LABELS = { standard: 'Standard', premium: 'Premium', featured: 'Featured' };
+
+function selectPrPlan(el) {
+  document.querySelectorAll('#pr-plan-grid .plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPrPlan = el.dataset.plan;
+}
+
+document.getElementById('pr-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('[type=submit]');
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang lưu...';
+  const body = {
+    title: document.getElementById('pr-title').value,
+    image_url: document.getElementById('pr-image').value,
+    content: document.getElementById('pr-content').value,
+    excerpt: document.getElementById('pr-excerpt').value,
+    link: document.getElementById('pr-link').value,
+    contact: document.getElementById('pr-contact').value,
+    plan: selectedPrPlan
+  };
+  try {
+    const r = await fetch(`${ADS_API}/api/pr-posts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify(body)
+    });
+    const d = await r.json();
+    if (!r.ok) { showAlert('pr-alert', d.error || 'Lỗi tạo bài PR'); btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Gửi Bài PR & Thanh toán'; return; }
+    pendingPrId = d.id;
+    // Hiện PR pay modal
+    const price = PR_PLAN_PRICES[selectedPrPlan] || 100000;
+    const planLabel = PR_PLAN_LABELS[selectedPrPlan] || selectedPrPlan;
+    document.getElementById('pr-pay-content').innerHTML = `
+      <p style="font-size:.85rem;color:rgba(255,255,255,.6);margin:0 0 1rem">Bài PR <strong style="color:#f9a8d4">${escHtml(body.title)}</strong> đã được tạo. Chọn phương thức thanh toán:</p>
+      <div style="display:flex;gap:.75rem;margin-bottom:.75rem">
+        <button class="btn-ads btn-primary-ads" style="flex:1;justify-content:center;background:linear-gradient(135deg,#e31837,#c0392b)" onclick="confirmPrPay('acb',this)">
+          <i class="fas fa-university"></i> ACB Bank
+        </button>
+        <button class="btn-ads btn-primary-ads" style="flex:1;justify-content:center;background:linear-gradient(135deg,#0068ff,#00c6ff)" onclick="confirmPrPay('zalopay',this)">
+          <i class="fas fa-wallet"></i> ZaloPay
+        </button>
+      </div>
+      <p style="font-size:.75rem;color:rgba(255,255,255,.35);text-align:center;margin:0">Gói ${planLabel} · ${price.toLocaleString('vi-VN')}₫</p>`;
+    document.getElementById('pr-pay-modal').classList.add('open');
+  } catch(e) { showAlert('pr-alert', 'Lỗi kết nối'); }
+  btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi Bài PR & Thanh toán';
+});
+
+async function confirmPrPay(method, btn) {
+  const origHtml = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+  const price = PR_PLAN_PRICES[selectedPrPlan] || 100000;
+  const planLabel = PR_PLAN_LABELS[selectedPrPlan] || selectedPrPlan;
+  const info = PAYMENT_INFO[method];
+  try {
+    await fetch(`${ADS_API}/api/pr-posts/${pendingPrId}/pay`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+      body: JSON.stringify({ method, plan: selectedPrPlan })
+    }).catch(() => {});
+  } catch(e) {}
+  btn.disabled = false; btn.innerHTML = origHtml;
+  document.getElementById('pr-pay-modal').classList.remove('open');
+
+  const content = method === 'acb'
+    ? `<div style="text-align:center">
+        <div style="background:linear-gradient(135deg,#e31837,#c0392b);color:#fff;font-weight:900;font-size:1rem;padding:.5rem 1.2rem;border-radius:50px;display:inline-block;margin-bottom:1rem">🏦 ACB Bank</div>
+        <img src="${info.qr}" style="width:200px;height:200px;border-radius:16px;border:3px solid rgba(255,255,255,.15);display:block;margin:0 auto 1rem" onerror="this.style.display='none'">
+        <div style="background:rgba(255,255,255,.06);border-radius:14px;padding:1rem;text-align:left;font-size:.85rem">
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Ngân hàng</span><span style="font-weight:700">ACB</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tài khoản</span><span style="font-weight:700">${info.account}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Chủ tài khoản</span><span style="font-weight:700">${info.name}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tiền</span><span style="font-weight:900;color:#4ade80">${price.toLocaleString('vi-VN')}₫</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0"><span style="color:rgba(255,255,255,.5)">Nội dung CK</span><span style="font-weight:700;color:#f9a8d4">PR${pendingPrId} ${planLabel}</span></div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.85rem">Sau khi chuyển khoản, admin sẽ duyệt trong 1-4 giờ</p>
+      </div>`
+    : `<div style="text-align:center">
+        <div style="background:linear-gradient(135deg,#0068ff,#00c6ff);color:#fff;font-weight:900;font-size:1rem;padding:.5rem 1.2rem;border-radius:50px;display:inline-block;margin-bottom:1rem">💙 ZaloPay</div>
+        <img src="${info.qr}" style="width:200px;height:200px;border-radius:16px;border:3px solid rgba(255,255,255,.15);display:block;margin:0 auto 1rem" onerror="this.style.display='none'">
+        <div style="background:rgba(255,255,255,.06);border-radius:14px;padding:1rem;text-align:left;font-size:.85rem">
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số điện thoại</span><span style="font-weight:700">${info.phone}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Tên</span><span style="font-weight:700">${info.name}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08)"><span style="color:rgba(255,255,255,.5)">Số tiền</span><span style="font-weight:900;color:#4ade80">${price.toLocaleString('vi-VN')}₫</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.4rem 0"><span style="color:rgba(255,255,255,.5)">Nội dung</span><span style="font-weight:700;color:#f9a8d4">PR${pendingPrId} ${planLabel}</span></div>
+        </div>
+        <p style="font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.85rem">Sau khi thanh toán, admin sẽ duyệt trong 1-4 giờ</p>
+      </div>`;
+  document.getElementById('qr-pay-content').innerHTML = content;
+  document.getElementById('qr-pay-modal').classList.add('open');
+}
+
+async function loadMyPr() {
+  const container = document.getElementById('my-pr-list');
+  if (!container) return;
+  const token = getToken();
+  if (!token) { container.innerHTML = '<p style="color:#f87171;font-size:.85rem">Vui lòng đăng nhập</p>'; return; }
+  container.innerHTML = '<div class="ads-loading"><i class="fas fa-spinner"></i>Đang tải...</div>';
+  try {
+    const r = await fetch(`${ADS_API}/api/pr-posts/my`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const posts = await r.json();
+    if (!posts.length) {
+      container.innerHTML = '<div class="empty-state"><div class="icon">📝</div><p>Chưa có bài PR nào</p></div>';
+      return;
+    }
+    const prStatusLabel = s => ({ pending:'Chờ duyệt', paid:'Đã TT', active:'Đang chạy', expired:'Hết hạn', rejected:'Bị từ chối' }[s] || s);
+    container.innerHTML = `<div class="ads-table-wrap"><table>
+      <thead><tr><th>Tiêu đề</th><th>Gói</th><th>Trạng thái</th><th>Lượt xem</th><th>Còn lại</th></tr></thead>
+      <tbody>${posts.map(p => `<tr>
+        <td style="font-weight:600;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(p.title)}</td>
+        <td style="font-size:.78rem;color:rgba(255,255,255,.5);text-transform:capitalize">${p.plan}</td>
+        <td><span class="badge badge-${p.status}">${prStatusLabel(p.status)}</span></td>
+        <td>${p.views || 0}</td>
+        <td style="font-size:.78rem;color:rgba(255,255,255,.5)">${p.expires_at ? Math.max(0, Math.ceil((new Date(p.expires_at)-Date.now())/86400000)) + ' ngày' : '—'}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table></div>`;
+  } catch(e) {
+    container.innerHTML = '<p style="color:#f87171;font-size:.85rem">Lỗi tải dữ liệu</p>';
+  }
+}
+
+// Xử lý kết quả thanh toán redirect về
+const urlParams = new URLSearchParams(location.search);
+if (urlParams.get('payment') === 'success') {
+  document.addEventListener('DOMContentLoaded', () => {
+    showAlert('my-ads-alert', '✅ Thanh toán thành công! Quảng cáo đang chờ admin duyệt.', 'success');
+    switchTab('my-ads');
+  });
+}
+
+// Init — kiểm tra auth
+document.addEventListener('DOMContentLoaded', async () => {
+  const token = getToken();
+
+  if (!token) {
+    showLoginWall();
+    return;
+  }
+
+  // Có token → show app ngay, verify ở background
+  document.getElementById('adsLoading').style.display = 'none';
+  document.getElementById('adsMain').style.display = 'block';
+
+  // Verify token ở background — nếu thực sự invalid thì mới show login wall
+  try {
+    const r = await fetch(`${ADS_API}/api/auth/me`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (r.status === 401 || r.status === 403) {
+      const d = await r.json().catch(() => ({}));
+      // Chỉ logout nếu server xác nhận rõ ràng token invalid
+      if (d.error && (d.error.includes('hết hạn') || d.error.includes('không tồn tại') || d.error.includes('Unauthorized'))) {
+        localStorage.removeItem('user_token');
+        localStorage.removeItem('auth_token');
+        showLoginWall();
+      }
+    }
+  } catch(e) {
+    // Network error — vẫn giữ app hiển thị
+    console.warn('Auth check failed:', e.message);
+  }
+});
+
+function showLoginWall() {
+  document.getElementById('adsLoading').style.display = 'none';
+  document.getElementById('adsMain').style.display = 'none';
+  document.getElementById('ads-login-wall').style.display = 'flex';
+}
+</script>
+<script src="retention.js" defer></script>
+<script src="features.js?v=2" defer></script>
+<script src="features2.js?v=2" defer></script>
+<script src="features3.js?v=2" defer></script>
+</body>
+</html>
